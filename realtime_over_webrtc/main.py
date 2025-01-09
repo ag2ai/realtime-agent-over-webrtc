@@ -30,9 +30,12 @@ app = FastAPI()
 async def index_page():
     return {"message": "WebRTC AG2 Server is running!"}
 
+
 website_files_path = Path(__file__).parent / "website_files"
 
-app.mount("/static", StaticFiles(directory=website_files_path / "static"), name="static")
+app.mount(
+    "/static", StaticFiles(directory=website_files_path / "static"), name="static"
+)
 
 # Templates for HTML responses
 
@@ -44,6 +47,7 @@ async def start_chat(request: Request):
     """Endpoint to return the HTML page for audio chat."""
     port = request.url.port
     return templates.TemplateResponse("chat.html", {"request": request, "port": port})
+
 
 @app.websocket("/session")
 async def handle_media_stream(websocket: WebSocket):
@@ -60,9 +64,13 @@ async def handle_media_stream(websocket: WebSocket):
         logger=logger,
     )
 
-    @realtime_agent.register_realtime_function(name="get_weather", description="Get the current weather")
+    @realtime_agent.register_realtime_function(
+        name="get_weather", description="Get the current weather"
+    )
     def get_weather(location: Annotated[str, "city"]) -> str:
         logger.info(f"Checking the weather: {location}")
-        return "The weather is cloudy." if location == "Rome" else "The weather is sunny."
+        return (
+            "The weather is cloudy." if location == "Rome" else "The weather is sunny."
+        )
 
     await realtime_agent.run()
