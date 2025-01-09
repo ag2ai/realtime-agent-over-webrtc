@@ -39,7 +39,7 @@ Currenlty WebRTC can be used only by API keys the begin with:
 sk-proj
 ```
 
-and other keys may result internal server error  (500) on OpenAI server. For more details see:
+Other keys may result internal server error  (500) on OpenAI server. For more details see:
 https://community.openai.com/t/realtime-api-create-sessions-results-in-500-internal-server-error/1060964/5
 
 ### (Optional) Create and use a virtual environment
