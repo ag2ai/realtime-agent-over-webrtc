@@ -58,19 +58,34 @@ async def handle_media_stream(websocket: WebSocket):
 
     realtime_agent = RealtimeAgent(
         name="Weather Bot",
-        system_message="Hello there! I am an AI voice assistant powered by Autogen and the OpenAI Realtime API. You can ask me about weather, jokes, or anything you can imagine. Start by saying 'How can I help you'?",
+        system_message="Hello there! I am an AI voice assistant powered by AG2 and the OpenAI Realtime API. You can ask me about weather or the temperature. Start by saying 'AG2 here, how can I help you'? Keep responses brief, two short sentences maximum.",
         llm_config=realtime_llm_config,
         websocket=websocket,
         logger=logger,
     )
 
-    @realtime_agent.register_realtime_function(
+    @realtime_agent.register_realtime_function(  # type: ignore [misc]
         name="get_weather", description="Get the current weather"
     )
     def get_weather(location: Annotated[str, "city"]) -> str:
-        logger.info(f"Checking the weather: {location}")
-        return (
-            "The weather is cloudy." if location == "Rome" else "The weather is sunny."
+        weather = (
+            "The weather is cloudy."
+            if location == "Seattle"
+            else "The weather is sunny."
         )
+        logger.info(f"<-- Calling get_weather function for {location}, Weather: {weather} -->")
+        return weather
 
+    @realtime_agent.register_realtime_function(  # type: ignore [misc]
+        name="get_temperature", description="Get the current temperature"
+    )
+    def get_temperature(location: Annotated[str, "city"]) -> str:
+        temperature = (
+            "16 Degrees Fareinheit"
+            if location == "Seattle"
+            else "30 Degrees Celsius"
+        )
+        logger.info(f"<-- Calling get_temperature function for {location}, Temperature: {temperature} -->")
+        return temperature
+    
     await realtime_agent.run()
