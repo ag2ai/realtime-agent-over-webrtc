@@ -1,5 +1,5 @@
 
-# **RealtimeAgent over WebSockets**
+# **RealtimeAgent over WebRTC**
 
 This project demonstrates how to create a voice assistant using Python, [FastAPI](https://fastapi.tiangolo.com/) and an [AG2 RealtimeAgent](https://docs.ag2.ai/docs/reference/agentchat/realtime_agent/realtime_agent#realtimeagent). The application streams audio from a client browser to [OpenAI Realtime API](https://platform.openai.com/docs/guides/realtime-webrtc) directly over [WebRTC](https://webrtc.org/).
 
