@@ -1,11 +1,11 @@
 
 # **RealtimeAgent over WebSockets**
 
-This project demonstrates how to create a voice assistant using Python, FastAPI, WebSockets, and an AG2 RealtimeAgent. The application streams audio from a browser to a FastAPI server and enables real-time voice communication with the RealtimeAgent.
+This project demonstrates how to create a voice assistant using Python, [FastAPI](https://fastapi.tiangolo.com/) and an [AG2 RealtimeAgent](https://docs.ag2.ai/docs/reference/agentchat/realtime_agent/realtime_agent#realtimeagent). The application streams audio from a client browser to [OpenAI Realtime API](https://platform.openai.com/docs/guides/realtime-webrtc) directly over [WebRTC](https://webrtc.org/).
 
 ## **Key Features**
-- **WebSocket Audio Streaming**: Direct real-time audio streaming between the browser and server.
-- **FastAPI Integration**: A lightweight Python backend for handling WebSocket traffic.
+- **WebRTC Audio Streaming**: Direct real-time audio streaming between the browser and OpenAI API over [WebRTC](https://webrtc.org/).
+- **FastAPI Integration**: A lightweight Python backend for handling [RealtimeAgent](https://docs.ag2.ai/docs/reference/agentchat/realtime_agent/realtime_agent#realtimeagent) connection and function calling.
 
 ## **Prerequisites**
 
@@ -20,8 +20,8 @@ Follow these steps to set up the project locally:
 
 ### **1. Clone the Repository**
 ```bash
-git clone https://github.com/sternakt/RealtimeAgent-WebSocketAudioAdapter.git
-cd RealtimeAgent-WebSocketAudioAdapter
+git clone https://github.com/ag2ai/realtime-agent-over-webrtc.git
+cd realtime-agent-over-webrtc
 ```
 
 ### **2. Set Up Environment Variables**
@@ -30,6 +30,17 @@ Create a `OAI_CONFIG_LIST` file based on the provided `OAI_CONFIG_LIST_sample`:
 cp OAI_CONFIG_LIST_sample OAI_CONFIG_LIST
 ```
 In the OAI_CONFIG_LIST file, update the `api_key` to your OpenAI API key.
+
+#### Important note
+
+Currenlty WebRTC can be used only by API keys the begin with:
+
+```
+sk-proj
+```
+
+and other keys may result internal server error  (500) on OpenAI server. For more details see:
+https://community.openai.com/t/realtime-api-create-sessions-results-in-500-internal-server-error/1060964/5
 
 ### (Optional) Create and use a virtual environment
 
@@ -47,9 +58,9 @@ pip install -r requirements.txt
 ```
 
 ### **4. Start the Server**
-Run the application with Uvicorn:
+Run the application with [Uvicorn](https://www.uvicorn.org/):
 ```bash
-uvicorn realtime_over_websockets.main:app --port 5050
+uvicorn realtime_over_webrtc.main:app --port 5050
 ```
 
 ## **Test the App**
