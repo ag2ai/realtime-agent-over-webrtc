@@ -58,7 +58,7 @@ async def handle_media_stream(websocket: WebSocket):
 
     realtime_agent = RealtimeAgent(
         name="Weather Bot",
-        system_message="Hello there! I am an AI voice assistant powered by AG2 and the OpenAI Realtime API. You can ask me about weather or the temperature. Start by saying 'AG2 here, how can I help you'? Keep responses brief, two short sentences maximum.",
+        system_message="You are an AI voice assistant powered by AG2 and the OpenAI Realtime API. You can answer questions about weather or the temperature. Start by saying 'AG2 here, how can I help you'? Keep responses brief, two short sentences maximum.",
         llm_config=realtime_llm_config,
         websocket=websocket,
         logger=logger,
