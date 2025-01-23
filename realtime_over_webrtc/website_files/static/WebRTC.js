@@ -3,7 +3,7 @@ export async function ag2Connect(webSocketUrl) {
     let ws
     const pc = new RTCPeerConnection();
     let dc = null;  // data connection
-    const quedMessages = [] // queue messages from the server before the data connection is open
+    const queuedMessages = [] // queue messages from the server before the data connection is open
     let resolve, reject
     let completed = new Promise((_resolve, _reject) => {
             resolve = _resolve
@@ -66,7 +66,7 @@ export async function ag2Connect(webSocketUrl) {
                 _dc.send(JSON.stringify(init_chunk))
             }
             console.log("Sent init chunks to OpenAI WebRTC")
-            for (const qmsg of quedMessages) {
+            for (const qmsg of queuedMessages) {
                 _dc.send(qmsg)
             }
             console.log("Sent queued messages to OpenAI WebRTC")
@@ -95,7 +95,7 @@ export async function ag2Connect(webSocketUrl) {
             dc.send(messageJSON)
         } else {
             console.log("DC not ready yet, queueing", message)
-            quedMessages.push(messageJSON)
+            queuedMessages.push(messageJSON)
         }
     }
     await completed
